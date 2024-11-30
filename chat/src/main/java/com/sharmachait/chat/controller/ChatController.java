@@ -12,13 +12,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class ChatController {
     @Autowired
     private ChatMessageService chatMessageService;
@@ -30,7 +30,7 @@ public class ChatController {
     @GetMapping("/messages/{senderId}/{recipientId}")
     public ResponseEntity<List<ChatMessage>> findChatMessages(
             @PathVariable("senderId") Long senderId,
-            @PathVariable("senderId") Long recipientId
+            @PathVariable("recipientId") Long recipientId
     ){
         try {
             List<ChatMessage> chatMessages = chatMessageService.getChatMessages(senderId,recipientId);
