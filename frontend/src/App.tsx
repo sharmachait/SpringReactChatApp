@@ -1,15 +1,20 @@
 import "./App.css";
-// import SockJS from "sockjs-client"; // Import SockJS client
-// import { Stomp } from "@stomp/stompjs";
+import SockJS from "sockjs-client"; // Import SockJS client
+import { Client as StompClient, Stomp } from "@stomp/stompjs"; // Import StompJS
 import React, { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 function App() {
   // const socket = new SockJS("/ws"); // Establish connection with the server
   // const stompClient = Stomp.over(socket); // Use STOMP over WebSocket
   let [username, setUsername] = useState<string>("");
+  const [stompClient, setStompClient] = useState<StompClient | null>();
+
   async function connect(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
-    const res = await axios.get("http://localhost:5455/messages/1/2");
+    const sock = new SockJS("http://localhost:5455/ws");
+    const stomp = Stomp.over(sock);
+
+    // const res = await axios.get("http://localhost:5455/messages/1/2");
     console.log(username);
   }
   return (
